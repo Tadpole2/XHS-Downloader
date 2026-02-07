@@ -1,9 +1,12 @@
 __pycache__/
 *.pyc
+*.spec
 /.venv/
 /.ruff_cache/
 /.idea/
 /.run/
 /Volume/
 /venv/
+/dist/
+/build/
 !/.github/
