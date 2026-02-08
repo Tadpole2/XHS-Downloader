@@ -70,6 +70,7 @@ class Manager:
         folder_mode: bool,
         author_archive: bool,
         write_mtime: bool,
+        download_desc: bool,
         script_server: bool,
         cleaner: "Cleaner",
         print_object,
@@ -126,6 +127,7 @@ class Manager:
         self.live_download = self.check_bool(live_download, True)
         self.author_archive = self.check_bool(author_archive, False)
         self.write_mtime = self.check_bool(write_mtime, False)
+        self.download_desc = self.check_bool(download_desc, True)
         self.script_server = self.check_bool(script_server, False)
         self.create_folder()
 

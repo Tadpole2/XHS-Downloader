@@ -36,7 +36,6 @@ class XHSDownloader(App):
         self.parameter = self.SETTINGS.run()
         self.APP = XHS(
             **self.parameter,
-            _print=False,
         )
 
     async def on_mount(self) -> None:

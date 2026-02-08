@@ -122,10 +122,24 @@ class Setting(Screen):
                     value=self.data["record_data"],
                 ),
                 Checkbox(
-                    _("作品归档保存模式"),
+                    _("文件夹按作品归档"),
                     id="folder_mode",
                     value=self.data["folder_mode"],
                 ),
+                Checkbox(
+                    _("文件夹按作者归档"),
+                    id="author_archive",
+                    value=self.data["author_archive"],
+                ),
+                Checkbox(
+                    _("脚本服务器开关"),
+                    id="script_server",
+                    value=self.data["script_server"],
+                ),
+                classes="horizontal-layout",
+            ),
+            Label(),
+            Container(
                 Checkbox(
                     _("视频作品下载开关"),
                     id="video_download",
@@ -136,38 +150,29 @@ class Setting(Screen):
                     id="image_download",
                     value=self.data["image_download"],
                 ),
-                classes="horizontal-layout",
-            ),
-            Label(),
-            Container(
                 Checkbox(
                     _("动图文件下载开关"),
                     id="live_download",
                     value=self.data["live_download"],
                 ),
                 Checkbox(
-                    _("作品下载记录开关"),
-                    id="download_record",
-                    value=self.data["download_record"],
-                ),
-                Checkbox(
-                    _("作者归档保存模式"),
-                    id="author_archive",
-                    value=self.data["author_archive"],
-                ),
-                Checkbox(
-                    _("更新文件修改时间"),
-                    id="write_mtime",
-                    value=self.data["write_mtime"],
+                    _("文案内容下载开关"),
+                    id="download_desc",
+                    value=self.data["download_desc"],
                 ),
                 classes="horizontal-layout",
             ),
             Label(),
             Container(
                 Checkbox(
-                    _("脚本服务器开关"),
-                    id="script_server",
-                    value=self.data["script_server"],
+                    _("作品下载记录开关"),
+                    id="download_record",
+                    value=self.data["download_record"],
+                ),
+                Checkbox(
+                    _("更新文件修改时间"),
+                    id="write_mtime",
+                    value=self.data["write_mtime"],
                 ),
                 classes="horizontal-layout",
             ),
@@ -245,6 +250,7 @@ class Setting(Screen):
                 "author_archive": self.query_one("#author_archive").value,
                 "write_mtime": self.query_one("#write_mtime").value,
                 "script_server": self.query_one("#script_server").value,
+                "download_desc": self.query_one("#download_desc").value,
             }
         )
 

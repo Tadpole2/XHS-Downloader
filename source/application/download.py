@@ -67,6 +67,7 @@ class Download:
         self.live_download = manager.live_download
         self.author_archive = manager.author_archive
         self.write_mtime = manager.write_mtime
+        self.download_desc = manager.download_desc
 
     async def run(
         self,
@@ -76,6 +77,7 @@ class Download:
         nickname: str,
         filename: str,
         type_: str,
+        desc: str,
         mtime: int,
     ) -> tuple[Path, list[Any]]:
         path = self.__generate_path(nickname, filename)
@@ -109,6 +111,12 @@ class Download:
             for url, name, format_ in tasks
         ]
         tasks = await gather(*tasks)
+        if self.download_desc:
+            await self.__write_desc(
+                path,
+                filename,
+                desc,
+            )
         return path, tasks  # 未解之谜
 
     def __generate_path(self, nickname: str, filename: str):
@@ -335,3 +343,22 @@ class Download:
                 ERROR,
             )
         return path.joinpath(f"{name}.{default_suffix}")
+
+    async def __write_desc(
+        self,
+        path: Path,
+        name: str,
+        desc: str,
+    ):
+        if not desc:
+            return
+        file = path.joinpath(f"{name}.txt")
+        if file.exists():
+            return
+        async with open(
+            file,
+            "w",
+            encoding="utf-8",
+        ) as f:
+            await f.write(desc)
+

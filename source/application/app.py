@@ -134,6 +134,7 @@ class XHS:
         download_record=True,
         author_archive=False,
         write_mtime=False,
+        download_desc=True,
         language="zh_CN",
         # read_cookie: int | str = None,
         script_server: bool = False,
@@ -164,6 +165,7 @@ class XHS:
             folder_mode,
             author_archive,
             write_mtime,
+            download_desc,
             script_server,
             self.CLEANER,
             self.print,
@@ -229,6 +231,7 @@ class XHS:
                     + self.CLEANER.filter_name(container["作者昵称"]),
                     name,
                     container["作品类型"],
+                    self.__generate_desc(container),
                     container["时间戳"],
                 )
                 if not result:
@@ -593,6 +596,13 @@ class XHS:
             )
             or data["作品ID"]
         )
+
+    def __generate_desc(self, data: dict) -> str:
+        desc = f"【标题】\n {data['作品标题']}\n\n"
+        desc += f"【内容】\n {data['作品描述']}\n\n"
+        desc += f"【发布时间】\n {data['发布时间']}\n\n"
+        desc += f"【评论数量】\n {data['评论数量']}"
+        return desc
 
     async def monitor(
         self,
